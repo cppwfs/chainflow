@@ -20,11 +20,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 /**
- * Unit tests for {@link SupportAgents} using a mocked {@link ChatModel}.
- *
- * <p>Following Spring AI testing recommendations, a {@link ChatModel} mock is injected
- * into a {@link ChatClient.Builder} so that no real AI provider is called during tests.
- *
  * @author Glenn Renfro
  */
 @ExtendWith(MockitoExtension.class)
@@ -43,8 +38,6 @@ class SupportAgentsTest {
 				"Resolve category=%s email=%s",
 				"Draft reply for action=%s email=%s");
 	}
-
-	// --- classify() ---
 
 	@Test
 	void classifySetsBillingCategory() {
@@ -72,7 +65,6 @@ class SupportAgentsTest {
 
 	@Test
 	void classifySetsIgnoredWhenResultIsNull() {
-		// BeanOutputConverter returns null when content is null
 		given(chatModel.call(any(Prompt.class))).willReturn(
 				new ChatResponse(List.of(new Generation(new AssistantMessage(null)))));
 
@@ -81,8 +73,6 @@ class SupportAgentsTest {
 
 		assertThat(result.getCategory()).isEqualTo("IGNORED");
 	}
-
-	// --- resolve() ---
 
 	@Test
 	void resolveSetsActionAndReasoning() {
@@ -110,8 +100,6 @@ class SupportAgentsTest {
 		assertThat(result.getPolicyReasoning()).contains("50 feet or 50 seconds");
 	}
 
-	// --- draftReply() ---
-
 	@Test
 	void draftReplySetsReplyBody() {
 		stubChatModel("Dear customer, we are sending a replacement. Regards, Automated Support Team");
@@ -124,8 +112,6 @@ class SupportAgentsTest {
 
 		assertThat(result.getDraftedReplyBody()).contains("Automated Support Team");
 	}
-
-	// --- helpers ---
 
 	private void stubChatModel(String content) {
 		ChatResponse response = new ChatResponse(

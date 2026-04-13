@@ -29,6 +29,7 @@ dependencies {
 	implementation 'org.springframework.ai:spring-ai-starter-model-anthropic'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.integration:spring-integration-test'
+	testImplementation 'org.awaitility:awaitility:4.2.2'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
