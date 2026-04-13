@@ -114,8 +114,7 @@ class SupportAgentsTest {
 	}
 
 	private void stubChatModel(String content) {
-		ChatResponse response = new ChatResponse(
-				List.of(new Generation(new AssistantMessage(content))));
+		ChatResponse response = new ChatResponse(List.of(new Generation(new AssistantMessage(content))));
 		given(chatModel.call(any(Prompt.class))).willReturn(response);
 	}
 
